@@ -562,7 +562,8 @@ def train_model(
     checkpoint_dir='checkpoints',
     log_dir='logs',
     patience=15,
-    vis_dir='visualizations'
+    vis_dir='visualizations',
+    design_name='bc0'
 ):
     """
     Train the QoR prediction model with enhanced loss functions.
@@ -808,7 +809,7 @@ def train_model(
         print(f"Learning Rate: {current_lr}")
 
         # Save checkpoint
-        checkpoint_path = os.path.join(checkpoint_dir, f"model_epoch_{epoch+1}.pt")
+        checkpoint_path = os.path.join(checkpoint_dir, f"model_epoch_{epoch+1}_{design_name}.pt")
         torch.save({
             'epoch': epoch + 1,
             'model_state_dict': model.state_dict(),
@@ -843,7 +844,7 @@ def train_model(
     
     return model
 
-def main():
+def main(design_name):
     """
     Main function for training the QoR prediction model.
     """
@@ -852,7 +853,7 @@ def main():
     print(f"Using device: {device}")
     
     # Dataset paths
-    csv_path = 'dataset.csv'
+    csv_path = f'./datasets/{design_name}.csv'
     designs_dir = 'designs'
     
     # Create dataset
@@ -919,7 +920,8 @@ def main():
         weight_decay=1e-5,
         checkpoint_dir='checkpoints',
         log_dir='logs',
-        patience=15
+        patience=15,
+        design_name=design_name
     )
     
     # Save final model
@@ -1198,8 +1200,5 @@ def predict_area(circuit_bench_path, recipe, model_path=None, device=None):
     }
 
 if __name__ == '__main__':
-    main()
-
-
-
-
+    import sys
+    main(sys.argv[1])
