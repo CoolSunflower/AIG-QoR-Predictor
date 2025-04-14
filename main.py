@@ -914,7 +914,7 @@ def main():
         train_loader=train_loader,
         val_loader=val_loader,
         device=device,
-        num_epochs=100,
+        num_epochs=75,
         learning_rate=0.001,
         weight_decay=1e-5,
         checkpoint_dir='checkpoints',
