@@ -838,7 +838,7 @@ def train_model(
     writer.close()
     
     # Load best model
-    best_model_path = os.path.join(checkpoint_dir, f"model_epoch_{epoch+1-early_stop_counter}.pt")
+    best_model_path = os.path.join(checkpoint_dir, f"model_epoch_{epoch+1-early_stop_counter}_{design_name}.pt")
     checkpoint = torch.load(best_model_path)
     model.load_state_dict(checkpoint['model_state_dict'])
     
